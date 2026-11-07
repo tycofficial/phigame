@@ -1,0 +1,58 @@
+{
+  "upstream": "https://github.com/phigrostl/PhiVideo",
+  "commit": "de34e743cb9f70c728086bd696bf0aa2231fd4b7",
+  "rights": "Note textures and sounds belong to Pigeon Games; upstream code license does not relicense game assets.",
+  "assets": [
+    {
+      "file": "Tap.png",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Tap.png",
+      "sha256": "be4398e2981e58a646c497e844f4def966c8b2c4e2f75590395cf4004008915a",
+      "bytes": 4062
+    },
+    {
+      "file": "Flick.png",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Flick.png",
+      "sha256": "3bbc3a028a4befb2e074aa1897102b72c1d41d88a8f68caf6d2bb0847d0e349d",
+      "bytes": 7508
+    },
+    {
+      "file": "Drag.png",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Drag.png",
+      "sha256": "ecc0144b26be8cb403484242130fd0dbcb3a7d09a7ba4032b46c9ad1a2375c7c",
+      "bytes": 2481
+    },
+    {
+      "file": "Hold.png",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Hold.png",
+      "sha256": "ca330c7b1ee3add8ff81701a101f31750d62a140e1fc715b9abd5d7daeabedba",
+      "bytes": 1251007,
+      "runtime_transform": "Lanczos downsample from 989x2000 to 494x1000; original design unchanged",
+      "runtime_sha256": "ba17854fa2a83457d428906b89dd1e35d1e7bbdf1b3e4df470a1f5b8e818f8f6",
+      "runtime_bytes": 239493
+    },
+    {
+      "file": "HitFx.png",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/HitFx.png",
+      "sha256": "f9dc0bb3b6173d8364094d317afd71e43d90db1a8d8bb1ffbc6ee10e86f0d409",
+      "bytes": 758744
+    },
+    {
+      "file": "Tap.wav",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Tap.wav",
+      "sha256": "fc5145987489394947d7f6c7d4e36f4d441f05188ff5bd2f4cf12b717ca0cce6",
+      "bytes": 16842
+    },
+    {
+      "file": "Flick.wav",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Flick.wav",
+      "sha256": "ed6723503f079d9ae855c836aeb10b4da13107a06701efa4c03c2f24ef4e7b76",
+      "bytes": 71774
+    },
+    {
+      "file": "Drag.wav",
+      "source": "https://raw.githubusercontent.com/phigrostl/PhiVideo/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes/Drag.wav",
+      "sha256": "5f27b983b2f10134ce17ede6ff9a83b01b0582d5cf2841f1876106fce8eb9e7b",
+      "bytes": 83354
+    }
+  ]
+}

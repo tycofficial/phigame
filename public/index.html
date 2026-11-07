@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8f9">
+  <meta name="description" content="音游球 · 小球自动弹跳，穿越 Phigros 四种音符。">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>PHIGAME · 音游球</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg">
+  <link rel="stylesheet" href="./src/styles.css">
+  <link rel="preload" as="image" href="./assets/skin/Tap.png">
+  <link rel="preload" as="image" href="./assets/skin/Flick.png">
+  <link rel="preload" as="image" href="./assets/skin/Drag.png">
+</head>
+<body>
+  <svg class="svg-defs" aria-hidden="true"><defs>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 5 11 7-11 7Z"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4ZM15 8c3 2 3 6 0 8M18 5c5 4 5 10 0 14"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4ZM16 9l6 6M22 9l-6 6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+    <symbol id="i-full" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M4 15v5h5M20 15v5h-5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
+  </defs></svg>
+  <div class="app" id="app">
+    <header class="wordmark"><a href="./" aria-label="PHIGAME 首页">PHI<span>GAME</span><i></i></a><span class="byline">by TYC</span></header>
+    <main class="stage-wrap">
+      <section class="stage" id="stage" aria-label="音游球自动弹跳游戏">
+        <canvas id="game" aria-label="小球在音符之间自动弹跳的实时画面"></canvas>
+        <div class="hud">
+          <div class="hud-left"><span id="autoBadge" class="auto-badge"><i></i>AUTO</span><div class="hits"><strong id="hitCount">0</strong><span>HITS</span></div></div>
+          <div class="hud-right"><h1>音游球</h1><p>每个音符，只碰一次</p><div class="depth"><span id="depth">0</span> m <b>·</b> <span id="velocity">0</span> px/s</div></div>
+        </div>
+        <div class="loading" id="loading"><span></span>加载音符</div>
+        <div class="pause-overlay" id="pauseOverlay" hidden><button id="resume" type="button"><svg><use href="#i-play"/></svg><span>继续弹跳</span></button></div>
+        <div class="hold-label" id="holdLabel" hidden>HOLD <span>↓</span></div>
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+        <button class="sound-hint" id="soundHint" type="button"><svg><use href="#i-sound"/></svg>轻触开启打击音效</button>
+      </section>
+    </main>
+    <footer class="controls-wrap">
+      <nav class="controls" aria-label="游戏控制">
+        <button id="pause" class="primary" type="button" title="暂停（空格）" aria-label="暂停"><svg><use href="#i-pause"/></svg></button>
+        <button id="restart" type="button" title="重新开始（R）" aria-label="重新开始"><svg><use href="#i-reset"/></svg></button>
+        <span class="separator"></span>
+        <button id="mode" class="mode-control" type="button" aria-label="选择音符模式"><span class="color-dots"><i></i><i></i><i></i><i></i></span><span id="modeName">四色</span></button>
+        <span class="separator"></span>
+        <button id="sound" type="button" title="开启音效" aria-label="开启音效" aria-pressed="false"><svg><use href="#i-muted"/></svg></button>
+        <button id="settings" type="button" title="设置" aria-label="设置"><svg><use href="#i-settings"/></svg></button>
+        <button id="fullscreen" type="button" title="全屏" aria-label="全屏"><svg><use href="#i-full"/></svg></button>
+      </nav>
+      <div class="under-controls"><span id="runStatus">自动弹跳中</span><a href="https://github.com/tycofficial/phigame" target="_blank" rel="noopener">PHIGAME <svg><use href="#i-arrow"/></svg></a></div>
+    </footer>
+  </div>
+  <dialog id="preferences" aria-labelledby="dialogTitle">
+    <div class="dialog-heading"><div><span class="eyebrow">MAKE IT BOUNCE</span><h2 id="dialogTitle">弹跳设置</h2></div><button id="closeSettings" class="icon-button" type="button" aria-label="关闭设置"><svg><use href="#i-close"/></svg></button></div>
+    <fieldset class="mode-options"><legend>音符模式</legend>
+      <button type="button" data-mode="mixed" class="mode-option selected"><span class="mixed-art"><img src="./assets/skin/Tap.png" alt=""><img src="./assets/skin/Flick.png" alt=""><img src="./assets/skin/Drag.png" alt=""></span><span><b>四色混合</b><small>四种音符，一路向下</small></span><i></i></button>
+      <button type="button" data-mode="tap" class="mode-option"><span class="note-art"><img src="./assets/skin/Tap.png" alt="蓝键"></span><span><b>视频蓝键</b><small>碰到反弹，音符消失</small></span><i></i></button>
+      <button type="button" data-mode="flick" class="mode-option"><span class="note-art"><img src="./assets/skin/Flick.png" alt="红键"></span><span><b>红键 · Flick</b><small>随机方向反弹，速度增加</small></span><i></i></button>
+      <button type="button" data-mode="drag" class="mode-option"><span class="note-art"><img src="./assets/skin/Drag.png" alt="黄键"></span><span><b>黄键 · Drag</b><small>直接穿过，继续加速</small></span><i></i></button>
+      <button type="button" data-mode="hold" class="mode-option"><span class="hold-art"><img src="./assets/skin/Hold.png" alt="长条"></span><span><b>长条 · Hold</b><small>沿长条竖直缓慢向下贯穿</small></span><i></i></button>
+    </fieldset>
+    <div class="speed-setting"><div><label for="speed">播放速度</label><output id="speedValue" for="speed">1.0×</output></div><input id="speed" type="range" min="0.5" max="2" step="0.25" value="1"><div class="range-labels"><span>0.5×</span><span>1×</span><span>2×</span></div></div>
+    <label class="switch-row"><span>小球轨迹</span><input id="trails" type="checkbox" role="switch" checked><i></i></label>
+    <label class="switch-row"><span>打击特效</span><input id="effects" type="checkbox" role="switch" checked><i></i></label>
+    <button id="newRoute" class="new-route" type="button">换一条随机路线 <span>↗</span></button>
+    <details class="credits"><summary>素材来源与说明</summary><p>Phigros 音符贴图、打击音效版权归 Pigeon Games。本项目从开源 <a href="https://github.com/phigrostl/PhiVideo/tree/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes" target="_blank" rel="noopener">PhiVideo</a> 收录的原版资源取用，来源与校验值见仓库。</p><p>这是根据参考视频制作的非官方弹球游戏。四色规则按你的描述实现；无需手动接球。</p></details>
+  </dialog>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
