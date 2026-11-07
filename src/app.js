@@ -122,7 +122,7 @@ const audio = {
     $('sound').setAttribute('aria-pressed', this.enabled);
     $('sound').setAttribute('aria-label', this.enabled ? '关闭音效' : '开启音效');
     $('sound').title = this.enabled ? '关闭音效' : '开启音效';
-    $('sound').querySelector('use').setAttribute('href', this.enabled ? '#i-sound' : '#i-muted');
+    $('sound').querySelector('use').setAttribute('href', location.pathname + (this.enabled ? '#i-sound' : '#i-muted'));
   },
   play(type) {
     if (!this.enabled || this.context.state !== 'running' || this.voices >= 14) return;
@@ -267,7 +267,7 @@ function frame(time) {
 }
 function setPaused(value) {
   paused = value;
-  $('pause').querySelector('use').setAttribute('href', value ? '#i-play' : '#i-pause');
+  $('pause').querySelector('use').setAttribute('href', location.pathname + (value ? '#i-play' : '#i-pause'));
   $('pause').setAttribute('aria-label', value ? '继续弹跳' : '暂停');
   $('pause').title = value ? '继续弹跳（空格）' : '暂停（空格）';
   $('pauseOverlay').hidden = !value;

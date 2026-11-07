@@ -24,7 +24,8 @@ export function createWorker(fallback, fetcher = fetch, cacheProvider = () => gl
       let revision = match?.[1] || null;
       let path = match ? match[2] : url.pathname.slice(1);
       if (!path) path = 'index.html';
-      if (!Object.hasOwn(fallback, path)) return new Response('Not found', { status: 404 });
+      const safeAsset = /^(?:src|assets)\/[A-Za-z0-9_./-]+$/.test(path) && !path.split('/').includes('..');
+      if (!Object.hasOwn(fallback, path) && !safeAsset) return new Response('Not found', { status: 404 });
       if (!revision) {
         try {
           const response = await cachedFetch(`${ORIGIN}/gh-pages/release.json`, 20, context);
@@ -42,10 +43,11 @@ export function createWorker(fallback, fetcher = fetch, cacheProvider = () => gl
           if (response.ok) body = await response.arrayBuffer();
         } catch { /* The complete bundled first release remains usable. */ }
       }
-      if (!body) body = Uint8Array.from(atob(fallback[path]), c => c.charCodeAt(0));
+      if (!body && Object.hasOwn(fallback, path)) body = Uint8Array.from(atob(fallback[path]), c => c.charCodeAt(0));
+      if (!body) return new Response('Not found', { status: 404 });
       const extension = path.split('.').at(-1);
       if (extension === 'html' && revision) {
-        body = new TextDecoder().decode(body).replace('<head>', `<head><base href="/_v/${revision}/">`).replace('<a href="./" aria-label="PHIGAME 首页">', '<a href="/" aria-label="PHIGAME 首页">');
+        body = new TextDecoder().decode(body).replace('<head>', `<head><base href="/_v/${revision}/">`).replace('<a href="./" aria-label="PHIGAME 首页">', '<a href="/" aria-label="PHIGAME 首页">').replaceAll('href="#', `href="${url.pathname}#`);
       }
       return new Response(request.method === 'HEAD' ? null : body, {
         headers: {
