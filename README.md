@@ -21,13 +21,13 @@ python3 -m http.server 8080 --directory dist
 
 ## 自动部署
 
-网站：https://phigame-tyc.youchengtian91.chatgpt.site
+游戏网址：[https://tycofficial.github.io/phigame/](https://tycofficial.github.io/phigame/)
 
-`.github/workflows/deploy.yml` 在每次 `main` 推送后运行测试并构建。通过后将源代码提交写入 `gh-pages/release.json`；线上站点在 20 秒缓存期内切换至这个版本。页面将全部相对资源固定到同一个不可变的提交，避免新旧脚本混用。无需开启 GitHub Pages，也无需添加部署密钥。站点内置完整首版作为网络故障时的后备。
+游戏入口直接放在仓库根目录 `index.html`，样式、脚本和所有素材使用相对路径。GitHub Pages 使用现有的 `main` 分支根目录发布设置；每次推送到 `main` 都会自动部署更新。`.github/workflows/deploy.yml` 负责验证物理规则和完整构建，GitHub 自带的 Pages 工作流负责发布。无需在页面里打开 README 或跳转到其他网站。
 
 ## 资源来源
 
-音符贴图、打击特效和音效取自 [phigrostl/PhiVideo](https://github.com/phigrostl/PhiVideo/tree/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes)，固定上游提交 `de34e743cb9f70c728086bd696bf0aa2231fd4b7`。这些为项目收录的 Phigros 原版游戏资源；版权归 Pigeon Games。开源代码的许可证不改变游戏素材本身的权利归属。长条贴图按网页显示需要等比例缩至 494×1000，其原版设计保持不变。逐文件来源和 SHA-256 校验值见 `public/assets/skin/provenance.json`。
+音符贴图、打击特效和音效取自 [phigrostl/PhiVideo](https://github.com/phigrostl/PhiVideo/tree/de34e743cb9f70c728086bd696bf0aa2231fd4b7/resources/Notes)，固定上游提交 `de34e743cb9f70c728086bd696bf0aa2231fd4b7`。这些为项目收录的 Phigros 原版游戏资源；版权归 Pigeon Games。开源代码的许可证不改变游戏素材本身的权利归属。长条贴图按网页显示需要等比例缩至 494×1000，其原版设计保持不变。逐文件来源和 SHA-256 校验值见 `assets/skin/provenance.json`。
 
 本项目为非官方粉丝游戏，与 Phigros 官方没有隶属关系。
 
